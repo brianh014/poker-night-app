@@ -1,0 +1,10 @@
+<h1 mat-dialog-title>Add Player</h1>
+<div mat-dialog-content>
+    <mat-form-field>
+        <input matInput type="text" placeholder="Player's name" [(ngModel)]="name" required/>
+    </mat-form-field>
+</div>
+<div mat-dialog-actions>
+    <button mat-button (click)="onNoClick()">Cancel</button>
+    <button mat-button color="primary" (click)="addPlayer()" cdkFocusInitial>Add</button>
+</div>

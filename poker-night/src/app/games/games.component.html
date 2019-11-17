@@ -1,0 +1,45 @@
+<div class="container center padded">
+    <mat-nav-list>
+        <h2>
+            <div style="float: right"><button mat-raised-button color="primary" (click)="openNewGameDialog()">+ New Game</button></div>
+            Games
+        </h2>
+        <ng-container *ngFor="let game of games">
+            <span style="float: right; margin-top: 30px;" *ngIf="!game.closed && (game.players?.length || 0) == 0" (click)="deleteGame(game)">
+                <button mat-icon-button><mat-icon>delete</mat-icon></button>
+            </span>
+            <mat-list-item [routerLink]="['/games', game._id]" class="list-item" style="height: inherit !important;">
+                <div class="container" style="width: 100%; margin-top: 30px;">
+                    <div class="row">
+                        <div class="col-xs-2">
+                            <mat-icon>open_in_new</mat-icon>
+                        </div>
+                        <div class="col-xs-10">
+                            <div class="row">
+                                <div class="col-sm-4 col-xs-12">
+                                    <span>{{ game.date | date:'longDate':'UTC' }}</span>
+                                </div>
+                                <div class="col-sm-4 col-xs-6">
+                                    <span>{{ game.players?.length || 0 }} Players</span>
+                                </div>
+                                <div class="col-sm-4 col-xs-6">
+                                    <span >{{ game.buyIn | currency: 'USD' }} Buy In</span>
+                                </div>
+                                <div class="col-sm-4 col-xs-6">
+                                    <span>{{ game.buyInTotal() | currency: 'USD' }} Bought In</span>
+                                </div>
+                                <div class="col-sm-4 col-xs-6">
+                                    <span>{{ game.cashOutTotal() | currency: 'USD' }} Cashed Out</span>
+                                </div>
+                                <div class="col-sm-4 col-xs-6">
+                                    <span>{{ game.cashedOutCount() }}/{{ game.players?.length }} Players Cashed Out</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </mat-list-item>
+            <mat-divider></mat-divider>
+        </ng-container>
+    </mat-nav-list>
+</div>

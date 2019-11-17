@@ -1,0 +1,17 @@
+<div class="container padded">
+    <div>
+        <div style="float: right"><button mat-raised-button color="primary" (click)="openNewPlayerDialog()">+ New Player</button></div>
+        <h2>Players</h2>
+    </div>
+
+    <mat-accordion>
+        <mat-expansion-panel *ngFor="let player of players">
+            <mat-expansion-panel-header>
+                <mat-panel-title>
+                    {{ player.name }}
+                </mat-panel-title>
+            </mat-expansion-panel-header>
+            <p>TODO stats</p>
+        </mat-expansion-panel>
+    </mat-accordion>
+</div>

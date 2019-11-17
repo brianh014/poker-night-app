@@ -1,0 +1,14 @@
+<h1 mat-dialog-title>New Game</h1>
+<div mat-dialog-content>
+    <mat-form-field>
+        <input matInput type="date" placeholder="When's the game?" [(ngModel)]="date" required/>
+    </mat-form-field>
+    <mat-form-field>
+        <input matInput currencyMask [options]="{prefix: '', align: 'left'}"
+               placeholder="What's the buy in?" [(ngModel)]="buyIn" required/>
+    </mat-form-field>
+</div>
+<div mat-dialog-actions>
+    <button mat-button (click)="onNoClick()">Cancel</button>
+    <button mat-button color="primary" (click)="createGame()" cdkFocusInitial>Save</button>
+</div>
