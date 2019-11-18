@@ -51,7 +51,7 @@
                     </div>
                     <div class="col-sm-2 col-xs-6">
                         <div>Profit</div>
-                        <div *ngIf="player.cashOut">{{ player.cashOut - player.buyIn | currency:'USD'}}</div>
+                        <div *ngIf="player.cashOut != null">{{ player.cashOut - player.buyIn | currency:'USD'}}</div>
                     </div>
                     <div class="col-sm-2 col-xs-6">
                         <button mat-icon-button color="primary" *ngIf="player.changed" (click)="updatePlayer(player)"><mat-icon>save</mat-icon></button>
