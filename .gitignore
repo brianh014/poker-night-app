@@ -46,3 +46,4 @@ yarn-error.log
 baseline.json
 
 .env
+API/prod.env

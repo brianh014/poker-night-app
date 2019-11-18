@@ -1,4 +1,4 @@
 export const environment = {
   production: true,
-  pokerNightApiUrl: 'http://localhost:8000'
+  pokerNightApiUrl: 'https://poker-night-api.azurewebsites.net'
 };
