@@ -59,14 +59,14 @@ export class GameComponent implements OnInit {
   updatePlayer(player: GamePlayer) {
     this.gameService.updatePlayer(this.game._id, player)
       .then(game => {
-        this.game = game;
+        this.game = Object.assign(new Game(), game);
       });
   }
 
   removePlayer(player: GamePlayer) {
     this.gameService.deletePlayer(this.game._id, player)
       .then(game => {
-        this.game = game;
+        this.game = Object.assign(new Game(), game);
       });
   }
 

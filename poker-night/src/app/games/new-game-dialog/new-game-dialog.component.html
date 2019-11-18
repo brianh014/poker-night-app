@@ -4,7 +4,7 @@
         <input matInput type="date" placeholder="When's the game?" [(ngModel)]="date" required/>
     </mat-form-field>
     <mat-form-field>
-        <input matInput currencyMask [options]="{prefix: '', align: 'left'}"
+        <input matInput currencyMask [options]="{prefix: '', align: 'left', allowNegative: false}"
                placeholder="What's the buy in?" [(ngModel)]="buyIn" required/>
     </mat-form-field>
 </div>
