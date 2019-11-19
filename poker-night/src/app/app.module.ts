@@ -20,6 +20,7 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatGridListModule } from '@angular/material/grid-list';
 import { MatCardModule } from '@angular/material/card';
 import { MatSelectModule } from '@angular/material/select';
+import { MatTableModule } from '@angular/material/table';
 
 import { PlayersComponent } from './players/players.component';
 import { DashboardComponent } from './dashboard/dashboard.component';
@@ -61,7 +62,8 @@ import { NewPlayerDialog } from './players/new-player-dialog/new-player-dialog.c
     MatGridListModule,
     MatCardModule,
     NgxCurrencyModule,
-    MatSelectModule
+    MatSelectModule,
+    MatTableModule
   ],
   providers: [
     PlayerService,

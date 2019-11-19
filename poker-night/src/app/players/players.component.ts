@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { PlayerService } from '../services/player.service';
-import { Player } from '../models/player.model';
+import { Player, PlayerWithStats } from '../models/player.model';
 import { MatDialog } from '@angular/material/dialog';
 import { NewPlayerDialog } from './new-player-dialog/new-player-dialog.component';
 
@@ -10,7 +10,8 @@ import { NewPlayerDialog } from './new-player-dialog/new-player-dialog.component
   styleUrls: ['./players.component.less']
 })
 export class PlayersComponent implements OnInit {
-  players: Player[] = [];
+  displayedColumns: string[] = ['name', 'gamesPlayed', 'boughtIn', 'cashedOut', 'profit', 'avgProfit'];
+  players: PlayerWithStats[] = [];
 
   panelOpenState = false;
 
@@ -22,7 +23,7 @@ export class PlayersComponent implements OnInit {
   }
 
   getAllPlayers() {
-    this.playerService.getAll()
+    this.playerService.getAllWithStats()
       .then(players => {
         this.players = players;
       },
