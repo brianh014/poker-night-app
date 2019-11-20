@@ -3,6 +3,7 @@ import { GameService } from '../services/game.service';
 import { Game } from '../models/game.model';
 import { MatDialog } from '@angular/material/dialog';
 import { NewGameDialog } from './new-game-dialog/new-game-dialog.component';
+import { ConfirmDialog } from '../common/confirm-dialog/confirm-dialog.component';
 
 @Component({
   selector: 'app-games',
@@ -42,12 +43,20 @@ export class GamesComponent implements OnInit {
   }
 
   deleteGame(game: Game) {
-    this.gameService.deleteGame(game._id)
-      .then(msg => {
-        this.getAllGames();
-      }, err => {
-        alert('Could not delete game.');
-      });
+    const dialogRef = this.dialog.open(ConfirmDialog, {
+      width: '400px'
+    });
+    
+    dialogRef.afterClosed().subscribe((result: boolean) => {
+      if (result) {
+        this.gameService.deleteGame(game._id)
+          .then(msg => {
+            this.getAllGames();
+          }, err => {
+            alert('Could not delete game.');
+          });
+      }
+    });
   }
 
 }
