@@ -4,6 +4,7 @@ import { Game, GamePlayer } from 'src/app/models/game.model';
 import { GameService } from 'src/app/services/game.service';
 import { MatDialog } from '@angular/material/dialog';
 import { AddPlayerDialog } from '../add-player-dialog/add-player-dialog.component';
+import { ConfirmDialog } from 'src/app/common/confirm-dialog/confirm-dialog.component';
 
 @Component({
   selector: 'app-game',
@@ -64,10 +65,18 @@ export class GameComponent implements OnInit {
   }
 
   removePlayer(player: GamePlayer) {
-    this.gameService.deletePlayer(this.game._id, player)
-      .then(game => {
-        this.game = Object.assign(new Game(), game);
-      });
+    const dialogRef = this.dialog.open(ConfirmDialog, {
+      width: '400px'
+    });
+
+    dialogRef.afterClosed().subscribe((result: boolean) => {
+      if (result) {
+        this.gameService.deletePlayer(this.game._id, player)
+          .then(game => {
+            this.game = Object.assign(new Game(), game);
+          });
+      }
+    });
   }
 
 }

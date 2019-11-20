@@ -33,6 +33,7 @@ import { GameService } from './services/game.service';
 import { NewGameDialog } from './games/new-game-dialog/new-game-dialog.component';
 import { AddPlayerDialog } from './games/add-player-dialog/add-player-dialog.component';
 import { NewPlayerDialog } from './players/new-player-dialog/new-player-dialog.component';
+import { ConfirmDialog } from './common/confirm-dialog/confirm-dialog.component';
 
 @NgModule({
   declarations: [
@@ -43,7 +44,8 @@ import { NewPlayerDialog } from './players/new-player-dialog/new-player-dialog.c
     GameComponent,
     NewGameDialog,
     AddPlayerDialog,
-    NewPlayerDialog
+    NewPlayerDialog,
+    ConfirmDialog
   ],
   imports: [
     BrowserModule,
@@ -73,7 +75,8 @@ import { NewPlayerDialog } from './players/new-player-dialog/new-player-dialog.c
   entryComponents: [
     NewGameDialog,
     AddPlayerDialog,
-    NewPlayerDialog
+    NewPlayerDialog,
+    ConfirmDialog
   ],
   bootstrap: [AppComponent]
 })
