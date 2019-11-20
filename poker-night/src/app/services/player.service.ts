@@ -13,8 +13,10 @@ export class PlayerService {
         return this.http.get<Player[]>(this.base).toPromise();
     }
 
-    getAllWithStats(): Promise<PlayerWithStats[]> {
-        return this.http.get<PlayerWithStats[]>(`${this.base}/stats`).toPromise();
+    getAllWithStats(sortField:string = null, sortDirection: string = null, limit: string = null): Promise<PlayerWithStats[]> {
+        return this.http.get<PlayerWithStats[]>(`${this.base}/stats`,
+            {params: {sort: sortField, dir: sortDirection, limit: limit}})
+            .toPromise();
     }
 
     updateOrCreatePlayer(player: Player): Promise<Player> {

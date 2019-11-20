@@ -9,6 +9,9 @@ router.get('/', async function(req, res, next) {
 });
 
 router.get('/stats', async function(req, res, next) {
+  let sort = req.query['sort'] || 'name';
+  let dir = req.query['dir'] == 'desc' ? '-' : '';
+  let limit = req.query['limit'];
   let stats = await Player.aggregate(
     [
       {
@@ -64,9 +67,16 @@ router.get('/stats', async function(req, res, next) {
             '$avg': { '$subtract': [ '$games.players.cashOut', '$games.players.buyIn' ] }
           }
         }
+      },
+      {
+        '$addFields': {
+          'profit': { '$subtract': [ '$cashedOut', '$boughtIn' ] }
+        }
       }
     ]
-  ).sort({name: 'asc'});
+  )
+  .sort(dir + sort)
+  .limit(+limit || 1000);
   res.json(stats);
 });
 

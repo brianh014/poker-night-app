@@ -7,5 +7,6 @@ export class PlayerWithStats extends Player {
     boughtIn: number;
     cashedOut: number;
     gamesPlayed: number;
+    profit: number;
     avgProfit: number;
 }
