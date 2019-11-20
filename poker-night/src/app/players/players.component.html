@@ -4,24 +4,24 @@
         <h2>Players</h2>
     </div>
 
-    <table mat-table [dataSource]="players" class="mat-elevation-z8" style="width: 100%">
+    <table mat-table [dataSource]="players" class="mat-elevation-z2" style="width: 100%">
         <ng-container matColumnDef="name">
             <th mat-header-cell *matHeaderCellDef> </th>
             <td mat-cell *matCellDef="let player"> {{ player.name }} </td>
         </ng-container>
 
         <ng-container matColumnDef="gamesPlayed">
-            <th mat-header-cell *matHeaderCellDef> Games Played </th>
+            <th mat-header-cell *matHeaderCellDef> Games<br />Played </th>
             <td mat-cell *matCellDef="let player"> {{ player.gamesPlayed }} </td>
         </ng-container>
 
         <ng-container matColumnDef="boughtIn">
-            <th mat-header-cell *matHeaderCellDef> Bought In </th>
+            <th mat-header-cell *matHeaderCellDef> Bought<br />In </th>
             <td mat-cell *matCellDef="let player"> {{ player.boughtIn | currency:'USD' }} </td>
         </ng-container>
 
         <ng-container matColumnDef="cashedOut">
-            <th mat-header-cell *matHeaderCellDef> Cashed Out </th>
+            <th mat-header-cell *matHeaderCellDef> Cashed<br />Out </th>
             <td mat-cell *matCellDef="let player"> {{ player.cashedOut | currency:'USD' }} </td>
         </ng-container>
 

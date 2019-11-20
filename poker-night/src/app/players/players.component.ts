@@ -10,7 +10,7 @@ import { NewPlayerDialog } from './new-player-dialog/new-player-dialog.component
   styleUrls: ['./players.component.less']
 })
 export class PlayersComponent implements OnInit {
-  displayedColumns: string[] = ['name', 'gamesPlayed', 'boughtIn', 'cashedOut', 'profit', 'avgProfit'];
+  displayedColumns: string[] = ['name', 'gamesPlayed', 'boughtIn', 'cashedOut', 'profit'];
   players: PlayerWithStats[] = [];
 
   panelOpenState = false;
