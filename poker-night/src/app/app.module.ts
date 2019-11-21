@@ -8,6 +8,7 @@ import { HttpClientModule } from '@angular/common/http';
 import { FormsModule } from '@angular/forms';
 import { NgxCurrencyModule } from "ngx-currency";
 import { DatePipe } from '@angular/common';
+import { CookieService } from 'ngx-cookie-service';
 
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatButtonModule } from '@angular/material/button';
@@ -29,11 +30,14 @@ import { GameComponent } from './games/game/game.component';
 
 import { PlayerService } from './services/player.service';
 import { GameService } from './services/game.service';
+import { AccountService } from './services/account.service';
+import { HttpClientService } from './services/httpClient.service';
 
 import { NewGameDialog } from './games/new-game-dialog/new-game-dialog.component';
 import { AddPlayerDialog } from './games/add-player-dialog/add-player-dialog.component';
 import { NewPlayerDialog } from './players/new-player-dialog/new-player-dialog.component';
 import { ConfirmDialog } from './common/confirm-dialog/confirm-dialog.component';
+import { LoginComponent } from './login/login.component';
 
 @NgModule({
   declarations: [
@@ -45,7 +49,8 @@ import { ConfirmDialog } from './common/confirm-dialog/confirm-dialog.component'
     NewGameDialog,
     AddPlayerDialog,
     NewPlayerDialog,
-    ConfirmDialog
+    ConfirmDialog,
+    LoginComponent
   ],
   imports: [
     BrowserModule,
@@ -68,9 +73,12 @@ import { ConfirmDialog } from './common/confirm-dialog/confirm-dialog.component'
     MatTableModule
   ],
   providers: [
+    HttpClientService,
     PlayerService,
     GameService,
-    DatePipe
+    DatePipe,
+    AccountService,
+    CookieService
   ],
   entryComponents: [
     NewGameDialog,

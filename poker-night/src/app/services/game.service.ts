@@ -1,14 +1,14 @@
 import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
 import { environment } from '../../environments/environment';
 import { Game, NewGame, GamePlayer } from '../models/game.model';
 import { Player } from '../models/player.model';
+import { HttpClientService } from './httpClient.service';
 
 @Injectable()
 export class GameService {
     private base = `${environment.pokerNightApiUrl}/games`;
 
-    constructor(private http: HttpClient) { }
+    constructor(private http: HttpClientService) { }
 
     getAll(): Promise<Game[]> {
         return this.http.get<Game[]>(this.base).toPromise();

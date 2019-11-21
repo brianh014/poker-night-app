@@ -11,6 +11,7 @@ var mongoose = require('mongoose');
 global.db = mongoose.createConnection(process.env.DATABASE_URL)
 
 var indexRouter = require('./routes/index');
+var accountRouter = require('./routes/account');
 var playersRouter = require('./routes/players');
 var gamesRouter = require('./routes/games');
 
@@ -29,6 +30,7 @@ app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
 app.use('/', indexRouter);
+app.use('/account', accountRouter);
 app.use('/players', playersRouter);
 app.use('/games', gamesRouter);
 

@@ -1,6 +1,7 @@
 var express = require('express');
 var router = express.Router();
 var Game = require('../models/game');
+var Auth = require('../auth/auth');
 
 router.get('/', async function(req, res, next) {
     res.json(await Game.find().populate('players.player').sort({date: 'desc'}));
@@ -12,6 +13,7 @@ router.get('/:id', async function(req, res, next) {
 
 router.post('/new', async function(req, res, next) {
     try {
+      new Auth().checkToken(req);
       let game = new Game();
       game.date = req.body.date;
       game.buyIn = req.body.buyIn;
@@ -19,14 +21,15 @@ router.post('/new', async function(req, res, next) {
       res.json(await Game.findOne({_id: game._id}).populate('players.player'));
     }
     catch (err) {
-      res.status(500);
-      err.status = '500';
+      res.status(err.status || 500);
+      err.status = err.status || '500';
       res.render('error', { message: 'Could create new game', error: err });
     }
 });
 
 router.delete('/:id', async function(req, res, next) {
   try {
+    new Auth().checkToken(req);
     let game = await Game.findOne({_id: req.params['id']});
     if (game.players.length > 0 || game.closed) {
       res.status(500);
@@ -34,11 +37,11 @@ router.delete('/:id', async function(req, res, next) {
       res.render('error', { message: 'Could not delete game as it is closed or has players on it', error: err });
     }
     await Game.deleteOne({_id: game._id});
-    res.json("{'msg': 'Game deleted'");
+    res.json({'msg': 'Game deleted'});
   }
   catch (err) {
-    res.status(500);
-    err.status = '500';
+    res.status(err.status || 500);
+    err.status = err.status || '500';
     res.render('error', { message: 'Could not add player', error: err });
   }
 });

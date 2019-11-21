@@ -8,6 +8,11 @@
     </span>
     <span><button mat-button routerLink="/players">Players</button></span>
     <span><button mat-button routerLink="/games">Games</button></span>
+
+    <span style="flex: 1 1 auto;"></span>
+
+    <span *ngIf="!user"><button mat-button routerLink="/login">Admin</button></span>
+    <span *ngIf="user"><button mat-button (click)="logout()">Logout</button></span>
   </mat-toolbar-row>
 </mat-toolbar>
 

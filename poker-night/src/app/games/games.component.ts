@@ -4,6 +4,8 @@ import { Game } from '../models/game.model';
 import { MatDialog } from '@angular/material/dialog';
 import { NewGameDialog } from './new-game-dialog/new-game-dialog.component';
 import { ConfirmDialog } from '../common/confirm-dialog/confirm-dialog.component';
+import { AccountService } from '../services/account.service';
+import { User } from '../models/user.model';
 
 @Component({
   selector: 'app-games',
@@ -12,11 +14,15 @@ import { ConfirmDialog } from '../common/confirm-dialog/confirm-dialog.component
 })
 export class GamesComponent implements OnInit {
   games: Game[] = [];
+  user: User;
 
   constructor(private gameService: GameService,
-              public dialog: MatDialog) { }
+              public dialog: MatDialog,
+              private accountService: AccountService) { }
 
   ngOnInit() {
+    this.accountService.currentUser.subscribe(user => this.user = user);
+
     this.getAllGames();
   }
 
