@@ -6,15 +6,13 @@
         <span style="padding-left: 5px;">Poker Night</span>
       </button>
     </span>
-    <span class="hidden-xs">
-      <span><button mat-button routerLink="/players">Players</button></span>
-      <span><button mat-button routerLink="/games">Games</button></span>
+    <span class="hidden-xs"><button mat-button routerLink="/players">Players</button></span>
+    <span class="hidden-xs"><button mat-button routerLink="/games">Games</button></span>
 
-      <span style="flex: 1 1 auto;"></span>
+    <span class="hidden-xs" style="flex: 1 1 auto;"></span>
 
-      <span *ngIf="!user"><button mat-button routerLink="/login">Admin</button></span>
-      <span *ngIf="user"><button mat-button (click)="logout()">Logout</button></span>
-    </span>
+    <span class="hidden-xs" *ngIf="!user"><button mat-button routerLink="/login">Admin</button></span>
+    <span class="hidden-xs" *ngIf="user"><button mat-button (click)="logout()">Logout</button></span>
   </mat-toolbar-row>
   <mat-toolbar-row class="visible-xs">
     <span><button mat-button routerLink="/players">Players</button></span>

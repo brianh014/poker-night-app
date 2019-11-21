@@ -31,8 +31,7 @@ export class AccountService {
                         user.isAdmin = res.isAdmin;
                         this._currentUser.next(Object.assign(new User(), user));
                     }
-                }),
-                catchError(err => of<User>())
+                })
             ).toPromise();
     }
     

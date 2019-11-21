@@ -22,14 +22,10 @@ export class HttpClientService {
         responseType?: 'json';
         withCredentials?: boolean;
     }) {
-        let headers = {
-            'Content-Type': 'application/json',
-            'Accept': 'application/json',
-            'Access-Control-Allow-Headers': 'Content-Type',
-        };
+        let headers = new HttpHeaders();
         if (this.cookieService.check('poker-night-auth-token')) {
             let token = this.cookieService.get('poker-night-auth-token');
-            headers['Authorization'] = token;
+            headers.set('Authorization', token);
         }
 
         if (options) {
