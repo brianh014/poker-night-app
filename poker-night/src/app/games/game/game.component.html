@@ -1,5 +1,8 @@
 <div class="container padded">
-    <h2>Poker Game for {{ game?.date | date:'longDate':'UTC' }}</h2>
+    <h2>Poker Game for {{ game?.date | date:'longDate':'UTC' }}
+        <button mat-icon-button *ngIf="game?.closed" (click)="toggleClosed()"><mat-icon>lock</mat-icon></button>
+        <button mat-icon-button *ngIf="!game?.closed && user?.isAdmin" (click)="toggleClosed()"><mat-icon>lock_open</mat-icon></button>
+    </h2>
     <div class="container" style="width: 100%; margin-top: 30px;">
         <div class="row">
             <div class="col-xs-12 col-sm-10">
@@ -38,7 +41,8 @@
                                    placeholder="Buy In" 
                                    [ngModel]="player.buyIn" (ngModelChange)="buyInChanged(player, $event)"
                                    (keyup.enter)="updatePlayer(player)"
-                                   name="buyIn"/>
+                                   name="buyIn"
+                                   [readonly]="game.closed" />
                         </mat-form-field>
                     </div>
                     <div class="col-sm-3 col-xs-12">
@@ -48,7 +52,8 @@
                                    placeholder="Cash Out"  
                                    [ngModel]="player.cashOut" (ngModelChange)="cashOutChanged(player, $event)"
                                    (keyup.enter)="updatePlayer(player)"
-                                   name="cashOut" />
+                                   name="cashOut"
+                                   [readonly]="game.closed" />
                         </mat-form-field>
                     </div>
                     <div class="col-sm-2 col-xs-6">
@@ -57,7 +62,7 @@
                     </div>
                     <div class="col-sm-2 col-xs-6">
                         <button mat-icon-button color="primary" *ngIf="player.changed" (click)="updatePlayer(player)"><mat-icon>save</mat-icon></button>
-                        <button mat-icon-button (click)="removePlayer(player)"><mat-icon>delete</mat-icon></button>
+                        <button *ngIf="!game.closed" mat-icon-button (click)="removePlayer(player)"><mat-icon>delete</mat-icon></button>
                     </div>
                 </div>
             </form>

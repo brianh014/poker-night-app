@@ -37,4 +37,8 @@ export class GameService {
     deletePlayer(gameId: string, player: GamePlayer): Promise<Game>  {
         return this.http.delete<Game>(`${this.base}/${gameId}/remove-player/${player._id}`).toPromise();
     }
+
+    toggleClosed(gameId: string) {
+        return this.http.post<Game>(`${this.base}/${gameId}/toggle-closed`, null).toPromise();
+    }
 }

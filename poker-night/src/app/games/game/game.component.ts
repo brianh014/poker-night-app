@@ -5,6 +5,8 @@ import { GameService } from 'src/app/services/game.service';
 import { MatDialog } from '@angular/material/dialog';
 import { AddPlayerDialog } from '../add-player-dialog/add-player-dialog.component';
 import { ConfirmDialog } from 'src/app/common/confirm-dialog/confirm-dialog.component';
+import { User } from 'src/app/models/user.model';
+import { AccountService } from 'src/app/services/account.service';
 
 @Component({
   selector: 'app-game',
@@ -13,12 +15,16 @@ import { ConfirmDialog } from 'src/app/common/confirm-dialog/confirm-dialog.comp
 })
 export class GameComponent implements OnInit {
   game: Game;
+  user: User;
 
   constructor(private route: ActivatedRoute,
               private gameService: GameService,
+              private accountService: AccountService,
               public dialog: MatDialog) { }
 
   ngOnInit() {
+    this.accountService.currentUser.subscribe(user => this.user = user);
+
     this.getGame();
   }
 
@@ -61,7 +67,8 @@ export class GameComponent implements OnInit {
     this.gameService.updatePlayer(this.game._id, player)
       .then(game => {
         this.game = Object.assign(new Game(), game);
-      });
+      },
+      err => alert('Could not update player'));
   }
 
   removePlayer(player: GamePlayer) {
@@ -74,9 +81,20 @@ export class GameComponent implements OnInit {
         this.gameService.deletePlayer(this.game._id, player)
           .then(game => {
             this.game = Object.assign(new Game(), game);
-          });
+          },
+          err => alert('Could not delete player'));
       }
     });
+  }
+
+  toggleClosed() {
+    if (this.user && this.user.isAdmin) {
+      this.gameService.toggleClosed(this.game._id)
+        .then(
+          game => this.game = Object.assign(new Game(), game),
+          err => alert('Could not open or close game')
+        );
+    }
   }
 
 }
