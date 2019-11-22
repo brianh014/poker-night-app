@@ -25,7 +25,7 @@ export class HttpClientService {
         let headers = new HttpHeaders();
         if (this.cookieService.check('poker-night-auth-token')) {
             let token = this.cookieService.get('poker-night-auth-token');
-            headers.set('Authorization', token);
+            headers = headers.set('Authorization', token);
         }
 
         if (options) {

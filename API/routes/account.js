@@ -1,20 +1,25 @@
 var express = require('express');
 var router = express.Router();
-var bcrypt = require('bcrypt');
 var Account = require('../models/account');
 var Auth = require('../auth/auth');
 
 router.post('/create', async function(req, res, next) {
     try {
-        let account = new Account();
-        account.username = req.body.username;
-        account.passwordHash = await bcrypt.hash(req.body.password, 10);
-        await account.save();
-        res.json(true);
+        if (req.body.password && req.body.password.length > 6
+            && req.body.username && req.body.username.length > 4) {
+            let account = new Account();
+            account.username = req.body.username;
+            account.setPassword(req.body.password);
+            await account.save();
+            res.json(true);
+        }
+        let err = new Error();
+        err.status = 400;
+        throw err;
     }
     catch (err) {
-        res.status(500);
-        err.status = '500';
+        res.status(err.status || 500);
+        err.status = err.status || '500';
         res.render('error', { message: 'Could not create account', error: err });
     }
 });
@@ -22,7 +27,7 @@ router.post('/create', async function(req, res, next) {
 router.get('/login', async function(req, res, next) {
     try {
         let account = await Account.findOne({username: req.query['username']});
-        if (!bcrypt.compareSync(req.query['password'], account.passwordHash)) {
+        if (!account.validPassword(req.query['password'])) {
             res.status(401);
             err = new Error();
             err.status = '401';

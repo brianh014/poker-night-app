@@ -1,6 +1,7 @@
 require('dotenv').config();
 var jwt = require('jsonwebtoken');
 
+
 module.exports = function() {
     let publicKey = process.env.PUBLIC_KEY.replace(/\\n/g, '\n');
     let privateKey = process.env.PRIVATE_KEY.replace(/\\n/g, '\n');
@@ -44,5 +45,10 @@ module.exports = function() {
 
     this.decodeToken = function(req) {
         return jwt.verify(req.header('Authorization'), publicKey, verifyOptions);
+    }
+
+    this.getPasswordHash = function(password) {
+        this.salt = crypto.randomBytes(16).toString('hex');
+        return crypto.pbkdf2Sync(password, this.salt, 1000, 64, `sha512`).toString(`hex`); 
     }
   };
