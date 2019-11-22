@@ -7,6 +7,7 @@ import { AddPlayerDialog } from '../add-player-dialog/add-player-dialog.componen
 import { ConfirmDialog } from 'src/app/common/confirm-dialog/confirm-dialog.component';
 import { User } from 'src/app/models/user.model';
 import { AccountService } from 'src/app/services/account.service';
+import { BuyUpDialog } from '../buy-up-dialog/buy-up-dialog.component';
 
 @Component({
   selector: 'app-game',
@@ -95,6 +96,23 @@ export class GameComponent implements OnInit {
           err => alert('Could not open or close game')
         );
     }
+  }
+
+  openBuyUp(player: GamePlayer) {
+    const dialogRef = this.dialog.open(BuyUpDialog, {
+      width: '400px',
+      data: { game: this.game, gamePlayer: player }
+    });
+
+    dialogRef.afterClosed().subscribe((result: any) => {
+      if (!result.cancel) {
+        this.gameService.updatePlayer(this.game._id, result.gamePlayer)
+          .then(game => {
+            this.game = Object.assign(new Game(), game);
+          },
+          err => alert('Could not update player'));
+      }
+    });
   }
 
 }

@@ -1,0 +1,23 @@
+<h1 mat-dialog-title>Buy Up</h1>
+<div mat-dialog-content>
+    <mat-form-field style="width: 205px;">
+        <span matPrefix>$ &nbsp;</span>
+        <input matInput currencyMask [options]="{prefix: '', align: 'left', allowNegative: false, nullable: true}"
+                placeholder="How much do have right now?" 
+                [ngModel]="onHand" (ngModelChange)="onHand = $event"
+                name="onHand" />
+    </mat-form-field>
+    <div style="min-height: 150px;">
+        <ng-container *ngIf="onHand && onHand < data?.game.buyIn">
+            <h3>Grab <strong>{{ (data?.game.buyIn - onHand) |  currency:'USD'}}</strong> of chips</h3>
+            <h3>Press "Done" after getting your chips and your total buy in will be updated</h3>
+        </ng-container>
+        <ng-container *ngIf="onHand >= data?.game.buyIn">
+            <h3>You can only buy up to the buy in of {{ data?.game.buyIn | currency:'USD' }}</h3>
+        </ng-container>
+    </div>
+</div>
+<div mat-dialog-actions>
+    <button mat-button (click)="onNoClick()">Cancel</button>
+    <button mat-button color="primary" [disabled]="onHand == null || onHand >= data?.game.buyIn" (click)="buyUp()" cdkFocusInitial>Done</button>
+</div>

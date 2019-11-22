@@ -28,6 +28,7 @@ import { PlayersComponent } from './players/players.component';
 import { DashboardComponent } from './dashboard/dashboard.component';
 import { GamesComponent } from './games/games.component';
 import { GameComponent } from './games/game/game.component';
+import { LoginComponent } from './login/login.component';
 
 import { PlayerService } from './services/player.service';
 import { GameService } from './services/game.service';
@@ -38,7 +39,7 @@ import { NewGameDialog } from './games/new-game-dialog/new-game-dialog.component
 import { AddPlayerDialog } from './games/add-player-dialog/add-player-dialog.component';
 import { NewPlayerDialog } from './players/new-player-dialog/new-player-dialog.component';
 import { ConfirmDialog } from './common/confirm-dialog/confirm-dialog.component';
-import { LoginComponent } from './login/login.component';
+import { BuyUpDialog } from './games/buy-up-dialog/buy-up-dialog.component';
 
 @NgModule({
   declarations: [
@@ -51,7 +52,8 @@ import { LoginComponent } from './login/login.component';
     AddPlayerDialog,
     NewPlayerDialog,
     ConfirmDialog,
-    LoginComponent
+    LoginComponent,
+    BuyUpDialog
   ],
   imports: [
     BrowserModule,
@@ -86,7 +88,8 @@ import { LoginComponent } from './login/login.component';
     NewGameDialog,
     AddPlayerDialog,
     NewPlayerDialog,
-    ConfirmDialog
+    ConfirmDialog,
+    BuyUpDialog
   ],
   bootstrap: [AppComponent]
 })
