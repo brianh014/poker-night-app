@@ -22,6 +22,7 @@ import { MatGridListModule } from '@angular/material/grid-list';
 import { MatCardModule } from '@angular/material/card';
 import { MatSelectModule } from '@angular/material/select';
 import { MatTableModule } from '@angular/material/table';
+import { MatSortModule } from '@angular/material/sort';
 
 import { PlayersComponent } from './players/players.component';
 import { DashboardComponent } from './dashboard/dashboard.component';
@@ -70,7 +71,8 @@ import { LoginComponent } from './login/login.component';
     MatCardModule,
     NgxCurrencyModule,
     MatSelectModule,
-    MatTableModule
+    MatTableModule,
+    MatSortModule
   ],
   providers: [
     HttpClientService,
