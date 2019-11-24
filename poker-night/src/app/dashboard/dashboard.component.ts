@@ -9,12 +9,16 @@ import { Player } from '../models/player.model';
 })
 export class DashboardComponent implements OnInit {
   playerCriterion = [
-    {value: 'profit', display: 'By Total Profit'},
-    {value: 'avgProfit', display: 'By Average Profit'},
-    {value: 'boughtIn', display: 'By Total Bought In'},
+    {value: 'profit', display: 'By Total Profit', header: 'Total Profit'},
+    {value: 'avgProfit', display: 'By Average Profit', header: 'Average Profit'},
+    {value: 'boughtIn', display: 'By Total Bought In', header: 'Total Bought In'},
   ]
   topPlayersSelectedCriteria = this.playerCriterion[0];
   topPlayers: Player[] = [];
+
+  loading = false;
+  loaded = false;
+  firstLoaded = false;
 
   constructor(private playersService: PlayerService) { }
 
@@ -23,13 +27,27 @@ export class DashboardComponent implements OnInit {
   }
 
   getTopPlayersByCriteria(criteria: string) {
+    this.loaded = false;
+    setTimeout(t => this.loading = !this.loaded, 500);
+
     this.playersService.getAllWithStats(criteria, 'desc', '9')
-      .then(topPlayers => this.topPlayers = topPlayers);
+      .then(topPlayers => {
+        this.loaded = true;
+        this.loading = false;
+        this.firstLoaded = true;
+        this.topPlayers = topPlayers;
+      },
+      err => {
+        this.loaded = true;
+        this.loading = false;
+        this.firstLoaded = true;
+        alert('Could not get top players');
+      });
   }
 
   changeTopPlayerCriteria(criteria) {
-    this.topPlayersSelectedCriteria = criteria
-    this.getTopPlayersByCriteria(criteria.value);
+    this.topPlayersSelectedCriteria = criteria.value
+    this.getTopPlayersByCriteria(criteria.value.value);
   }
 
   getTrophySrc(place: number) {

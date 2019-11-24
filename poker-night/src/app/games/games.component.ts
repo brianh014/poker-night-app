@@ -16,6 +16,9 @@ export class GamesComponent implements OnInit {
   games: Game[] = [];
   user: User;
 
+  loading = false;
+  loaded = false;
+
   constructor(private gameService: GameService,
               public dialog: MatDialog,
               private accountService: AccountService) { }
@@ -27,11 +30,18 @@ export class GamesComponent implements OnInit {
   }
 
   getAllGames() {
+    this.loaded = false;
+    setTimeout(t => this.loading = !this.loaded, 500);
+
     this.gameService.getAll()
       .then(games => {
         this.games = games.map(x => Object.assign(new Game(), x));
+        this.loaded = true;
+        this.loading = false;
       },
       err => {
+        this.loaded = true;
+        this.loading = false;
         alert("Sorry, could not get games at this time.");
       })
   }

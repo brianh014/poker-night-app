@@ -19,6 +19,8 @@ export class PlayersComponent implements OnInit, AfterViewInit {
   players: PlayerWithStats[] = [];
 
   panelOpenState = false;
+  loading = false;
+  loaded = false;
 
   constructor(private playerService: PlayerService,
               private accountService: AccountService,
@@ -36,11 +38,18 @@ export class PlayersComponent implements OnInit, AfterViewInit {
   }
 
   getAllPlayers() {
+    this.loaded = false;
+    setTimeout(t => this.loading = !this.loaded, 500);
+
     this.playerService.getAllWithStats(this.sort.active, this.sort.direction)
       .then(players => {
         this.players = players;
+        this.loaded = true;
+        this.loading = false;
       },
       err => {
+        this.loaded = true;
+        this.loading = false;
         alert("Sorry, was not able to get players at this time.");
       });
   }

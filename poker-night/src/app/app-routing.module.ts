@@ -5,15 +5,17 @@ import { DashboardComponent } from './dashboard/dashboard.component';
 import { GamesComponent } from './games/games.component';
 import { GameComponent } from './games/game/game.component';
 import { LoginComponent } from './login/login.component';
+import { HomeComponent } from './home/home.component';
 
 const routes: Routes = [
-  { path: 'dashboard', component: DashboardComponent},
+  { path: 'home', component: HomeComponent},
+  { path: 'stats', component: DashboardComponent},
   { path: 'login', component: LoginComponent},
   { path: 'players', component: PlayersComponent},
   { path: 'games', component: GamesComponent},
   { path: 'games/:id', component: GameComponent},
 
-  { path: '', redirectTo: '/dashboard', pathMatch: 'full' }
+  { path: '', redirectTo: '/home', pathMatch: 'full' }
 ];
 
 @NgModule({

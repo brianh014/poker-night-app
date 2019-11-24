@@ -1,41 +1,48 @@
 <div class="container padded">
     <h1 class="parent-header">Top Players</h1>
-    <mat-form-field>
-        <mat-select [value]="topPlayersSelectedCriteria.value" (selectionChange)="changeTopPlayerCriteria($event)">
-            <mat-option *ngFor="let criteria of playerCriterion" [value]="criteria.value">
-            {{ criteria.display }}
-            </mat-option>
-        </mat-select>
-    </mat-form-field>
-    <div class="row">
-        <ng-container *ngFor="let player of topPlayers; let i = index">
-            <div class="col-xs-12 col-sm-4" *ngIf="i < 3">
-                <mat-card class="top-player-card">
-                    <mat-card-content>
-                        <div class="center">                        
-                            <h2>{{ player.name }}</h2>
-                            <img class="trophy" [src]="getTrophySrc(i + 1)" />
-                            <h3 class="parent-header">{{ player[topPlayersSelectedCriteria.value] | currency:'USD' }}</h3>
-                            <h5 class="sub-header">Total Profit</h5>
-                        </div>
-                    </mat-card-content>
-                </mat-card>
-            </div>
-        </ng-container>
+
+    <div class="loader" *ngIf="loading">
+        <mat-progress-spinner color="primary" mode="indeterminate"></mat-progress-spinner>
     </div>
-    <div class="row">
-        <ng-container *ngFor="let player of topPlayers; let i = index">
-            <div class="col-xs-6 col-sm-2" *ngIf="i >= 3">
-                <mat-card class="top-player-card">
-                    <mat-card-content>
-                        <div class="center">                        
-                            <h3>#{{ i + 1 }} {{ player.name }}</h3>
-                            <h4 class="parent-header">{{ player[topPlayersSelectedCriteria.value] | currency:'USD' }}</h4>
-                            <h6 class="sub-header">Total Profit</h6>
-                        </div>
-                    </mat-card-content>
-                </mat-card>
-            </div>
-        </ng-container>
-    </div>
+
+    <ng-container *ngIf="firstLoaded && !loading">
+        <mat-form-field>
+            <mat-select [value]="topPlayersSelectedCriteria" (selectionChange)="changeTopPlayerCriteria($event)">
+                <mat-option *ngFor="let criteria of playerCriterion" [value]="criteria">
+                {{ criteria.display }}
+                </mat-option>
+            </mat-select>
+        </mat-form-field>
+        <div class="row">
+            <ng-container *ngFor="let player of topPlayers; let i = index">
+                <div class="col-xs-12 col-sm-4" *ngIf="i < 3">
+                    <mat-card class="top-player-card">
+                        <mat-card-content>
+                            <div class="center">                        
+                                <h2>{{ player.name }}</h2>
+                                <img class="trophy" [src]="getTrophySrc(i + 1)" />
+                                <h3 class="parent-header">{{ (player[topPlayersSelectedCriteria.value] || 0) | currency:'USD' }}</h3>
+                                <h5 class="sub-header">{{ topPlayersSelectedCriteria.header }}</h5>
+                            </div>
+                        </mat-card-content>
+                    </mat-card>
+                </div>
+            </ng-container>
+        </div>
+        <div class="row">
+            <ng-container *ngFor="let player of topPlayers; let i = index">
+                <div class="col-xs-6 col-sm-2" *ngIf="i >= 3">
+                    <mat-card class="top-player-card">
+                        <mat-card-content>
+                            <div class="center">                        
+                                <h3>#{{ i + 1 }} {{ player.name }}</h3>
+                                <h4 class="parent-header">{{ (player[topPlayersSelectedCriteria.value] || 0) | currency:'USD' }}</h4>
+                                <h6 class="sub-header">{{ topPlayersSelectedCriteria.header }}</h6>
+                            </div>
+                        </mat-card-content>
+                    </mat-card>
+                </div>
+            </ng-container>
+        </div>
+    </ng-container>
 </div>

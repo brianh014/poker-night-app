@@ -18,6 +18,10 @@ export class GameComponent implements OnInit {
   game: Game;
   user: User;
 
+  loading = false;
+  loaded = false;
+  firstLoaded = false;
+
   constructor(private route: ActivatedRoute,
               private gameService: GameService,
               private accountService: AccountService,
@@ -30,15 +34,31 @@ export class GameComponent implements OnInit {
   }
 
   getGame() {
+    this.startLoader();
     this.route.paramMap.subscribe(params => {
       let gameId = params.get("id");
       this.gameService.get(gameId).then(game => {
-        this.game = Object.assign(new Game(), game);
+        this.setGame(game);
+        this.firstLoaded = true;
       },
       err => {
+        this.loaded = true;
+        this.loading = false;
+        this.firstLoaded = true;
         alert("Sorry, could not get this game at this time.");
       });
     });
+  }
+
+  startLoader() {
+    this.loaded = false;
+    setTimeout(t => this.loading = !this.loaded, 500);
+  }
+
+  setGame(game: Game) {
+    this.game = Object.assign(new Game(), game);
+    this.loaded = true;
+    this.loading = false;
   }
 
   openNewGameDialog() {
@@ -65,11 +85,16 @@ export class GameComponent implements OnInit {
   }
 
   updatePlayer(player: GamePlayer) {
+    this.startLoader();
     this.gameService.updatePlayer(this.game._id, player)
       .then(game => {
-        this.game = Object.assign(new Game(), game);
+        this.setGame(game);
       },
-      err => alert('Could not update player'));
+      err => {
+        this.loaded = true;
+        this.loading = false;
+        alert('Could not update player');
+      }); 
   }
 
   removePlayer(player: GamePlayer) {
@@ -79,22 +104,31 @@ export class GameComponent implements OnInit {
 
     dialogRef.afterClosed().subscribe((result: boolean) => {
       if (result) {
+        this.startLoader();
         this.gameService.deletePlayer(this.game._id, player)
           .then(game => {
-            this.game = Object.assign(new Game(), game);
+            this.setGame(game);
           },
-          err => alert('Could not delete player'));
+          err => {
+            this.loaded = true;
+            this.loading = false;
+            alert('Could not delete player');
+          });
       }
     });
   }
 
   toggleClosed() {
     if (this.user && this.user.isAdmin) {
+      this.startLoader();
       this.gameService.toggleClosed(this.game._id)
         .then(
-          game => this.game = Object.assign(new Game(), game),
-          err => alert('Could not open or close game')
-        );
+          game => this.setGame(game),
+          err => {
+            this.loaded = true;
+            this.loading = false;
+            alert('Could not open or close game');
+          });
     }
   }
 
@@ -106,11 +140,16 @@ export class GameComponent implements OnInit {
 
     dialogRef.afterClosed().subscribe((result: any) => {
       if (!result.cancel) {
+        this.startLoader();
         this.gameService.updatePlayer(this.game._id, result.gamePlayer)
           .then(game => {
-            this.game = Object.assign(new Game(), game);
+            this.setGame(game);
           },
-          err => alert('Could not update player'));
+          err => {
+            this.loaded = true;
+            this.loading = false;
+            alert('Could not update player');
+          });
       }
     });
   }

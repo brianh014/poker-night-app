@@ -1,10 +1,14 @@
 <div class="container padded">
     <div>
-        <div *ngIf="user?.isAdmin" style="float: right"><button mat-raised-button color="primary" (click)="openNewPlayerDialog()">+ New Player</button></div>
+        <div *ngIf="user?.isAdmin" style="float: right"><button mat-raised-button color="accent" (click)="openNewPlayerDialog()">+ New Player</button></div>
         <h2>Players</h2>
     </div>
 
-    <table mat-table matSort matSortActive="name" matSortDisableClear matSortDirection="asc"
+    <div class="loader" *ngIf="loading">
+        <mat-progress-spinner color="primary" mode="indeterminate"></mat-progress-spinner>
+    </div>
+
+    <table [hidden]="!loaded" mat-table matSort matSortActive="name" matSortDisableClear matSortDirection="asc"
             [dataSource]="players" class="mat-elevation-z2" style="width: 100%">
         <ng-container matColumnDef="name">
             <th mat-header-cell *matHeaderCellDef mat-sort-header disableClear> Name </th>

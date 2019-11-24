@@ -1,5 +1,5 @@
-//@import 'themes/theme.css';
-@import '@angular/material/prebuilt-themes/indigo-pink.css';
+@import 'themes/theme.css';
+//@import '@angular/material/prebuilt-themes/indigo-pink.css';
 @import './assets/bootstrap.min.css';
 
 html, body { height: 100%; }
@@ -28,7 +28,16 @@ h1, h2, h3, h4, h5, h6 {
         margin-bottom: 4px;
     }
 
-    &.sub-header {
-        color: rgba(0,0,0,0.6);
+    &.sub-header:before {
+        //color: rgba(0,0,0,0.6);
+    }
+}
+
+.loader {
+    width: 100%;
+    margin: 50px 0;
+
+    mat-progress-spinner {
+        margin: 0 auto;
     }
 }

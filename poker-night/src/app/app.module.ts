@@ -23,6 +23,7 @@ import { MatCardModule } from '@angular/material/card';
 import { MatSelectModule } from '@angular/material/select';
 import { MatTableModule } from '@angular/material/table';
 import { MatSortModule } from '@angular/material/sort';
+import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
 
 import { PlayersComponent } from './players/players.component';
 import { DashboardComponent } from './dashboard/dashboard.component';
@@ -40,6 +41,7 @@ import { AddPlayerDialog } from './games/add-player-dialog/add-player-dialog.com
 import { NewPlayerDialog } from './players/new-player-dialog/new-player-dialog.component';
 import { ConfirmDialog } from './common/confirm-dialog/confirm-dialog.component';
 import { BuyUpDialog } from './games/buy-up-dialog/buy-up-dialog.component';
+import { HomeComponent } from './home/home.component';
 
 @NgModule({
   declarations: [
@@ -53,7 +55,8 @@ import { BuyUpDialog } from './games/buy-up-dialog/buy-up-dialog.component';
     NewPlayerDialog,
     ConfirmDialog,
     LoginComponent,
-    BuyUpDialog
+    BuyUpDialog,
+    HomeComponent
   ],
   imports: [
     BrowserModule,
@@ -74,7 +77,8 @@ import { BuyUpDialog } from './games/buy-up-dialog/buy-up-dialog.component';
     NgxCurrencyModule,
     MatSelectModule,
     MatTableModule,
-    MatSortModule
+    MatSortModule,
+    MatProgressSpinnerModule
   ],
   providers: [
     HttpClientService,
